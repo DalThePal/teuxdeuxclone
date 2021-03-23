@@ -1,0 +1,8 @@
+.week {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 80px - 36px);
+  padding-top: 80px;
+}

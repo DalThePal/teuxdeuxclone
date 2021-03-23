@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {useSelector} from 'react-redux';
+import './App.scss';
+import Header from './components/Header';
+import Week from './components/Week';
 
-function App() {
+const App = () => {
+  const secondayColor = useSelector(state => state.colors.secondary);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{backgroundColor: secondayColor}}>
+      <Header/>
+      <Week/>
     </div>
   );
 }
