@@ -9,6 +9,7 @@ import moment from 'moment';
 import List from '../List';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
+import { findAllByDisplayValue } from '@testing-library/dom';
 
 const Week = (props) => {
   const dispatch = useDispatch();
@@ -27,14 +28,14 @@ const Week = (props) => {
         listId,
         header: day.format('dddd'),
         subHeader: day.format('MMMM D, yyyy'),
-        data: []
+        data: lists[listId]?.data || [],
+        highlight: false
       }
 
-      let listObj = merge(newListObj, newLists[listId]);
       let indicesDelete = [];
 
       if (day.isBefore(today)) {
-        listObj.data.forEach((item, index) => {
+        newListObj.data.forEach((item, index) => {
           if (!item.completed) {
             oldData.push(item);
             indicesDelete.push(index);
@@ -42,16 +43,14 @@ const Week = (props) => {
         });
 
         indicesDelete.forEach((index) => {
-          listObj.data.splice(index, 1);
+          newListObj.data.splice(index, 1);
         })
-      } else {
-        if (day.dayOfYear() === today.dayOfYear()) {
-          listObj.data = [...listObj.data, ...oldData];
-          listObj.highlight = true;
-        }
+      } else if (day.dayOfYear() === today.dayOfYear()) {
+        newListObj.data = [...newListObj.data, ...oldData];
+        newListObj.highlight = true;
       }
 
-      newLists[listId] = listObj;
+      newLists[listId] = newListObj;
      
       dispatch(actions.setAllLists(newLists));
     }

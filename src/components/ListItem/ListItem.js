@@ -11,8 +11,6 @@ const ListItem = (props) => {
   const colors = useSelector(state => state.colors);
 
   const handleDoubleClick = (e) => {
-    e.stopPropagation();
-
     let li = document.getElementById(props.id);
     li.contentEditable = true;
     li.focus();
@@ -25,7 +23,6 @@ const ListItem = (props) => {
   }
 
   const handleOnClick = (e) => {
-    e.stopPropagation();
     dispatch(actions.setListItem({
       listId: props.listId,
       index: props.index,
@@ -39,6 +36,7 @@ const ListItem = (props) => {
   const handleBlur = () => {
     let li = document.getElementById(props.id);
     let text = li.innerText;
+    li.contentEditable = false;
 
     if (text === "") {
       dispatch(actions.removeListItem({
