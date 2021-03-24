@@ -1,8 +1,8 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
+import { jsx, css } from '@emotion/react';
 
 import React, { useState } from 'react';
-import { jsx, css } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../redux/actions';
 
@@ -48,10 +48,6 @@ const UserForm = (props) => {
         dispatch(actions.setPrimaryColor(value));
         break;
 
-      case "secondary":
-        dispatch(actions.setSecondaryColor(value));
-        break;
-
       default:
         break;
     }
@@ -80,7 +76,6 @@ const UserForm = (props) => {
     <div css={style}>
       <input css={inputStyle} value={props.user.name} placeholder="username" onChange={(e) => handleChange('username', e.target.value)}/>
       <input css={inputStyle} value={props.colors.primary} placeholder="primary color" onChange={(e) => handleChange('primary', e.target.value)}/>
-      <input css={inputStyle} value={props.colors.secondary} placeholder="secondary color" onChange={(e) => handleChange('secondary', e.target.value)}/>
     </div>
   );
 }
