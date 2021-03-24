@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
+import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions'
@@ -22,14 +23,16 @@ const ListItem = (props) => {
   }
 
   const handleOnClick = (e) => {
-    dispatch(actions.setListItem({
-      listId: props.listId,
-      index: props.index,
-      content: {
-        text: props.content.text,
-        completed: !props.content.completed
-      }
-    }));
+    if (props.content !== "") {
+      dispatch(actions.setListItem({
+        listId: props.listId,
+        index: props.index,
+        content: {
+          text: props.content.text,
+          completed: !props.content.completed
+        }
+      }));
+    }
   }
 
   const handleBlur = () => {
@@ -55,7 +58,7 @@ const ListItem = (props) => {
 
   }
 
-  const listItemStyle = css({
+  const pStyle = css({
     width           : '100%',
     padding         : '3px 0px',
     fontSize        : '12px',
@@ -67,9 +70,21 @@ const ListItem = (props) => {
     color           : props.highlight ? colors.primary : 'black'
   });
 
+  const liStyle = css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    i {
+      color: gray;
+    }
+  `;
+
   return (
-    <li css={listItemStyle} id={props.id} onBlur={handleBlur} onDoubleClick={handleDoubleClick} onClick={handleOnClick}>
-      {props.content.text}
+    <li css={liStyle} >
+      <p css={pStyle} id={props.id} onBlur={handleBlur} onDoubleClick={handleDoubleClick} onClick={handleOnClick}>{props.content.text}</p>
+      {isMobile && <i onClick={handleDoubleClick}>&#9998;</i>}
     </li>
   );
 }
