@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
-
+import { isMobile } from 'react-device-detect';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../redux/actions';
@@ -19,7 +19,7 @@ const Header = (props) => {
     display         : 'flex',
     alignItems      : 'center',
     justifyContent  : 'space-between',
-    padding         : '0px 64px',
+    padding         : isMobile ? '0px 30px': '0px 64px',
     fontFamily      : "PathwayGothicOne",
     boxSizing       : 'border-box',
     textTransform   : 'uppercase',
@@ -61,7 +61,6 @@ const UserForm = (props) => {
     padding: '10px',
     paddingBottom: '5px',
     paddingTop: '5px',
-    // backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column'
   });

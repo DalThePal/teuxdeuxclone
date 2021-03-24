@@ -3,6 +3,7 @@
 import { jsx, css } from '@emotion/react';
 
 import React, {useEffect, useState} from 'react';
+import { isMobile } from 'react-device-detect';
 import { useSelector } from 'react-redux';
 import ListItem from '../ListItem';
 
@@ -30,7 +31,42 @@ const List = (props) => {
     />
   );
 
-  const style = css`
+  const style = isMobile ? 
+  css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid lightgray;
+
+    h1, h6 {
+      text-transform: uppercase;
+      color: ${props.highlight ? colors.primary : 'black'}
+    }
+  
+    h1 {
+      font-size: 34px;
+      margin-bottom: 5px;
+      font-family: 'PathwayGothicOne';
+      
+    }
+  
+    h6 {
+      font-size: 11px;
+      font-family: 'Helvetica';
+      margin-bottom: 30px;
+    }
+  
+    ul {
+      width: 100%;
+      height: 100%;
+      background-image: repeating-linear-gradient(transparent,transparent 22px,lightgray 22px,lightgray 23.23px,transparent 23.23px,transparent 25px);
+    }
+  ` :
+  css`
     display: flex;
     flex-direction: column;
     align-items: center;

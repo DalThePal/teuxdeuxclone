@@ -3,6 +3,7 @@
 import { jsx, css } from '@emotion/react';
 
 import React, {useEffect, useState} from 'react';
+import { isMobile } from 'react-device-detect';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../redux/actions';
 import moment from 'moment';
@@ -72,7 +73,15 @@ const Week = (props) => {
   let listElems = Object.keys(lists).map((item, index, arr) => {
     let today = moment().dayOfYear();
 
-    if (item >= today - 1 && item < today + 4) {
+    if (isMobile && item == today) {
+      return <List
+        listId={item}
+        header={lists[item].header}
+        subHeader={lists[item].subHeader}
+        highlight={lists[item].highlight}
+      />
+    }
+    else if (!isMobile && item >= today - 1 && item < today + 4) {
       return <List
         listId={item}
         header={lists[item].header}
